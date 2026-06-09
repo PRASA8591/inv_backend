@@ -295,3 +295,19 @@ setInterval(async () => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const express = require('express');
+const cors = require('cors'); // 1. Import CORS
+const app = express();
+
+// 2. Configure CORS to allow ONLY your Vercel frontend
+const corsOptions = {
+    origin: 'https://inv-frontend-gray.vercel.app', // No slash at the end!
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true 
+};
+
+// 3. Apply the CORS middleware
+app.use(cors(corsOptions));
+app.use(express.json()); // Your existing JSON parser
+
+// ... the rest of your routes go here
